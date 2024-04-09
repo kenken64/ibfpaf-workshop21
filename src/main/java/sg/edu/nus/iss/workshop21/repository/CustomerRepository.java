@@ -77,11 +77,7 @@ public class CustomerRepository implements Queries{
             o.setFirstName(rs.getString("c_fn"));
             o.setLastName(rs.getString("c_ln"));
             o.setTaxRate(rs.getDouble("o_trate"));
-            // Timestamp ts = rs.getTimestamp("o_odate");
-            // System.out.println("Timestamp: " + ts);
-            // long x = ts.getTime();
-            // System.out.println("x: " + x);
-            // o.setOrderDate(new LocalDateTime(rs.getTimestamp("o_odate")));
+            o.setOrderDate(rs.getString("o_odate"));
             
             result.add(o);
         }
