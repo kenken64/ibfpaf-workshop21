@@ -57,12 +57,27 @@ public class CustomerRepository implements Queries{
         Customer c = new Customer();
         final SqlRowSet rs = jdbcTemplate
                         .queryForRowSet(GET_CUSTOMER_BY_ID, id);
+        System.out.println("rs: "+rs);
         if(rs.next()){
             c.setId(rs.getInt("id"));
             c.setFirstName(rs.getString("first_name"));
             c.setLastName(rs.getString("last_name"));
         }
         return c;
+    }
+
+    public boolean isCustomerExist(int id){
+        boolean isExist = false;
+        final SqlRowSet rs = jdbcTemplate
+                        .queryForRowSet(IS_CUSTOMER_EXIST, id);
+        System.out.println("rs: "+rs);
+        if(rs.next()){
+            int x = rs.getInt("count");
+            if(x>0){
+                isExist = true;
+            }
+        }
+        return isExist;
     }
 
 
@@ -77,7 +92,9 @@ public class CustomerRepository implements Queries{
             o.setFirstName(rs.getString("c_fn"));
             o.setLastName(rs.getString("c_ln"));
             o.setTaxRate(rs.getDouble("o_trate"));
-            o.setOrderDate(rs.getString("o_odate"));
+            LocalDateTime oDate= (LocalDateTime)
+                            rs.getObject("o_odate");
+            o.setOrderDate(oDate);
             
             result.add(o);
         }

@@ -1,5 +1,7 @@
 package sg.edu.nus.iss.workshop21.model;
 
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,5 +11,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Orders extends Customer{
     private double taxRate;
-    private String orderDate;
+    private LocalDateTime orderDate;
 }

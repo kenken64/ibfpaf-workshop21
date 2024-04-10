@@ -10,6 +10,8 @@ public interface Queries {
     public static final String GET_CUSTOMER_BY_ID = 
         "SELECT id, first_name, last_name FROM customers WHERE id = ?";
 
+    public static final String IS_CUSTOMER_EXIST = 
+        "SELECT count(*) as count FROM customers WHERE id = ?";
 
     public static final String GET_CUSTOMER_BY_ORDER = 
         """

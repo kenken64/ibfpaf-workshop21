@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import sg.edu.nus.iss.workshop21.exception.CustomerNotFoundException;
 import sg.edu.nus.iss.workshop21.model.Customer;
 import sg.edu.nus.iss.workshop21.model.Orders;
 import sg.edu.nus.iss.workshop21.services.CustomerService;
@@ -26,12 +27,12 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    public Customer getCustomersbyId(@PathVariable("id") int id){
+    public Customer getCustomersbyId(@PathVariable("id") int id) throws CustomerNotFoundException{
         return customerService.getCustomerById(id);
     }
 
     @GetMapping("/{id}/orders")
-    public List<Orders> getCustomerOrders(@PathVariable("id") int id){
+    public List<Orders> getCustomerOrders(@PathVariable("id") int id) throws CustomerNotFoundException{
         return customerService.getCustomerByOrders(id);
     }
     
