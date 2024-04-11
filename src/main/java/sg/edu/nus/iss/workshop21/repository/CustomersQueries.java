@@ -1,6 +1,6 @@
 package sg.edu.nus.iss.workshop21.repository;
 
-public interface Queries {
+public interface CustomersQueries {
     public static final String GET_ALL_CUSTOMERS 
         = "SELECT id, first_name, last_name FROM customers";
 

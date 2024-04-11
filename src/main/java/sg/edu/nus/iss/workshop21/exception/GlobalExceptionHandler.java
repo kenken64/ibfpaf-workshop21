@@ -14,7 +14,6 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    @SuppressWarnings("unused")
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     // @ExceptionHandler(CustomerNotFoundException.class)
@@ -37,5 +36,16 @@ public class GlobalExceptionHandler {
         mav.addObject("error_statusCode", HttpStatus.NOT_FOUND);
         mav.addObject("url", request.getRequestURL().toString());
         return mav;
+    }
+
+    @ExceptionHandler({InvalidCustomerException.class})
+    public ResponseEntity<ErrorMessage> handleInvalidException(Exception ex, HttpServletRequest request) {
+        ErrorMessage errMsg = new ErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                 new Date(),
+                 ex.getMessage(), request.getRequestURL().toString());
+
+         log.error(ex.getMessage());
+
+         return new ResponseEntity<ErrorMessage>(errMsg, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

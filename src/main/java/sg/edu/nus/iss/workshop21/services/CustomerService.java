@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sg.edu.nus.iss.workshop21.exception.CustomerNotFoundException;
+import sg.edu.nus.iss.workshop21.exception.InvalidCustomerException;
 import sg.edu.nus.iss.workshop21.model.Customer;
 import sg.edu.nus.iss.workshop21.model.Orders;
 import sg.edu.nus.iss.workshop21.repository.CustomerRepository;
@@ -32,7 +33,11 @@ public class CustomerService {
         return customerRepository.getCustomerById(id);
     }
 
-    public List<Orders> getCustomerByOrders(int id) throws CustomerNotFoundException{
+    public List<Orders> getCustomerByOrders(int id) throws CustomerNotFoundException
+                    ,InvalidCustomerException{
+        if(id < 0){
+            throw new InvalidCustomerException("Customer id is invalid");
+        }
         boolean customerExist = customerRepository.isCustomerExist(id);
         if(!customerExist){
             throw new CustomerNotFoundException("Customer with id: "+id+" not found");

@@ -1,6 +1,5 @@
 package sg.edu.nus.iss.workshop21.repository;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -15,17 +14,15 @@ import sg.edu.nus.iss.workshop21.model.Customer;
 import sg.edu.nus.iss.workshop21.model.Orders;
 
 @Repository
-public class CustomerRepository implements Queries{
+public class CustomerRepository implements CustomersQueries, OrdersQueries{
 
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-
     public List<Customer> getAllCustomers(){
-
         List<Customer> result = new LinkedList<Customer>();
         final SqlRowSet rs = jdbcTemplate.queryForRowSet(GET_ALL_CUSTOMERS);
-
+        
         while(rs.next()){
             Customer c = new Customer();
             c.setId(rs.getInt("id"));
@@ -33,7 +30,7 @@ public class CustomerRepository implements Queries{
             c.setLastName(rs.getString("last_name"));
             result.add(c);
         }
-
+        
         return Collections.unmodifiableList(result); 
     }
 
